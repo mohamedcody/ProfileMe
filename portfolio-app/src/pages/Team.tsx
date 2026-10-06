@@ -33,8 +33,8 @@ const Team = () => {
           <motion.div 
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
             style={{ 
-              maxWidth: '900px', margin: '0 auto 80px', textAlign: 'center',
-              borderLeft: '3px solid var(--accent-primary)', paddingLeft: '32px' 
+              maxWidth: '900px', margin: '0 auto 80px', textAlign: 'start',
+              borderInlineStart: '3px solid var(--accent-primary)', paddingInlineStart: '24px' 
             }}
           >
             <p style={{ fontSize: '1.25rem', color: 'var(--text-medium)', lineHeight: 1.8 }}>

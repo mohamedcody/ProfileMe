@@ -73,6 +73,23 @@ const Home = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [direction, setDirection] = useState(1); // 1 for right (next), -1 for left (prev)
+  const [cardsToShow, setCardsToShow] = useState(3);
+
+  useEffect(() => {
+    const updateCardsToShow = () => {
+      if (window.innerWidth < 768) {
+        setCardsToShow(1);
+      } else if (window.innerWidth < 1024) {
+        setCardsToShow(2);
+      } else {
+        setCardsToShow(3);
+      }
+    };
+
+    updateCardsToShow();
+    window.addEventListener('resize', updateCardsToShow);
+    return () => window.removeEventListener('resize', updateCardsToShow);
+  }, []);
 
   useEffect(() => {
     // Pause auto-play if mouse is hovering over the slider
@@ -96,18 +113,16 @@ const Home = () => {
     setStartIndex((prev) => (prev - 1 + servicesData.length) % servicesData.length);
   };
 
-  const visibleServices = [
-    servicesData[startIndex % servicesData.length],
-    servicesData[(startIndex + 1) % servicesData.length],
-    servicesData[(startIndex + 2) % servicesData.length],
-  ];
+  const visibleServices = Array.from({ length: cardsToShow }, (_, i) =>
+    servicesData[(startIndex + i) % servicesData.length]
+  );
 
   return (
     <PageWrapper>
       <div style={{ paddingTop: 'var(--space-120)' }}>
         
         {/* Premium Hero Section */}
-        <section className="container flex md-flex-col md-items-center" style={{ minHeight: '90vh', alignItems: 'center', gap: '40px', paddingTop: 'var(--space-64)' }}>
+        <section aria-label="Hero" className="container flex md-flex-col md-items-center" style={{ minHeight: '90vh', alignItems: 'center', gap: '40px', paddingTop: 'var(--space-64)' }}>
           <motion.div 
             initial="hidden" animate="visible"
             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
@@ -121,14 +136,15 @@ const Home = () => {
               <motion.h1 
                 variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } } }}
                 style={{ 
-                  fontSize: 'clamp(4.5rem, 9vw, 9rem)', 
+                  fontSize: 'clamp(2.75rem, 8vw, 7.5rem)', 
                   fontWeight: 900, 
-                  lineHeight: 0.9, 
+                  lineHeight: 0.95, 
                   textTransform: 'uppercase', 
                   letterSpacing: '-0.03em', 
                   marginBottom: '32px', 
                   position: 'relative',
-                  zIndex: 20
+                  zIndex: 20,
+                  wordBreak: 'break-word'
                 }}
               >
                 <span style={{ color: '#fff', display: 'block' }}>MOHAMED</span>
@@ -140,19 +156,15 @@ const Home = () => {
                   textShadow: '0 0 30px rgba(0, 180, 216, 0.2)'
                 }}>SAAD</span>
               </motion.h1>
-              <motion.h2 variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } } }} style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', fontWeight: 500, color: 'rgba(255,255,255,0.7)', marginBottom: '32px', letterSpacing: '0.02em' }}>Software Engineer</motion.h2>
-              <motion.p variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } } }} className="text-body" style={{ marginBottom: '48px', maxWidth: '480px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, fontSize: '1.05rem' }}>Building secure, scalable, and modern full-stack applications focused on speed, clean architecture, and exceptional user experiences.</motion.p>
+              <motion.h2 variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } } }} style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', fontWeight: 500, color: 'rgba(255,255,255,0.85)', marginBottom: '32px', letterSpacing: '0.02em' }}>Software Engineer</motion.h2>
+              <motion.p variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } } }} className="text-body" style={{ marginBottom: '48px', maxWidth: '480px', color: 'rgba(255,255,255,0.78)', lineHeight: 1.6, fontSize: '1.05rem' }}>Building secure, scalable, and modern full-stack applications focused on speed, clean architecture, and exceptional user experiences.</motion.p>
               
               <motion.div variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } } }} className="flex gap-16 flex-wrap">
-                <Link to="/projects" style={{ textDecoration: 'none' }}>
-                  <button className="btn-solid-cyber">
-                    {t('View My Work')}
-                  </button>
+                <Link to="/projects" className="btn-solid-cyber" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {t('View My Work')}
                 </Link>
-                <Link to="/contact" style={{ textDecoration: 'none' }}>
-                  <button className="btn-outline-cyber">
-                    {t('Contact Me')}
-                  </button>
+                <Link to="/contact" className="btn-outline-cyber" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {t('Contact Me')}
                 </Link>
               </motion.div>
             </div>
@@ -172,15 +184,15 @@ const Home = () => {
         <GlowingDivider />
 
         {/* About Section */}
-        <section className="container" style={{ padding: '0 var(--space-32)' }}>
+        <section aria-label="About Me" className="container">
           <div className="flex md-flex-col gap-64 items-center">
             <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} style={{ flex: 1 }}>
               <div style={{ marginBottom: 'var(--space-32)' }}>
                 <h2 className="text-h2" style={{ textTransform: 'uppercase', marginBottom: 'var(--space-8)' }}>&lt; <span className="gradient-text">{t('About Me')}</span> /&gt;</h2>
                 <div style={{ width: '40px', height: '3px', backgroundColor: 'var(--accent-primary)', borderRadius: '2px' }}></div>
               </div>
-              <p className="text-body-lg" style={{ marginBottom: 'var(--space-24)' }} dangerouslySetInnerHTML={{ __html: t('about_p1') }} />
-              <p className="text-body-lg" style={{ marginBottom: 'var(--space-32)' }}>Instead of just writing code, I focus on <span style={{ color: 'var(--accent-primary)' }}>solving real business problems</span>. I integrate modern tools, including AI, to improve productivity, while maintaining full responsibility for architectural decisions, security, and maintainability.</p>
+              <p className="text-body-lg" style={{ marginBottom: 'var(--space-24)', color: 'rgba(255, 255, 255, 0.78)' }} dangerouslySetInnerHTML={{ __html: t('about_p1') }} />
+              <p className="text-body-lg" style={{ marginBottom: 'var(--space-32)', color: 'rgba(255, 255, 255, 0.78)' }}>Instead of just writing code, I focus on <span style={{ color: 'var(--accent-primary)' }}>solving real business problems</span>. I integrate modern tools, including AI, to improve productivity, while maintaining full responsibility for architectural decisions, security, and maintainability.</p>
               <div style={{ borderInlineStart: '3px solid var(--accent-primary)', paddingInlineStart: 'var(--space-24)' }} className="text-body">
                 <em style={{ color: 'var(--text-high)' }}>{t('about_quote')}</em>
               </div>
@@ -210,20 +222,40 @@ const Home = () => {
         <GlowingDivider />
 
         {/* {t('How I Can Help')} Section - Auto Slider w/ Controls */}
-        <section>
+        <section aria-label="How I Can Help">
           <div className="container">
             <div className="flex justify-between items-end mb-48 gap-24 flex-wrap" style={{ alignItems: 'flex-end' }}>
               <div className="flex flex-col gap-12">
                 <h2 className="text-h2" style={{ textTransform: 'uppercase' }}>&lt; <span className="gradient-text">How I Can Help</span> /&gt;</h2>
-                <p className="text-body-lg" style={{ maxWidth: '600px', color: 'var(--text-medium)' }}>{t('How_subtitle')}</p>
+                <p className="text-body-lg" style={{ maxWidth: '600px', color: 'rgba(255, 255, 255, 0.78)' }}>{t('How_subtitle')}</p>
               </div>
 
-              {/* Navigation Controls */}
-              <div className="flex gap-16">
+              {/* Navigation Controls & Pagination Indicator */}
+              <div className="flex gap-16 items-center">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginInlineEnd: '8px' }}>
+                  {servicesData.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setStartIndex(i)}
+                      aria-label={`Go to slide ${i + 1}`}
+                      style={{
+                        width: startIndex === i ? '20px' : '8px',
+                        height: '8px',
+                        borderRadius: '4px',
+                        backgroundColor: startIndex === i ? 'var(--accent-primary)' : 'rgba(255, 255, 255, 0.2)',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: 0,
+                        transition: 'all 0.3s ease'
+                      }}
+                    />
+                  ))}
+                </div>
                 <motion.button 
                   whileHover={{ scale: 1.1, backgroundColor: 'rgba(0,180,216,0.1)', color: 'var(--accent-primary)', borderColor: 'var(--accent-primary)' }}
                   whileTap={{ scale: 0.9 }}
                   onClick={handlePrev}
+                  aria-label="Previous services"
                   style={{ width: '48px', height: '48px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', backgroundColor: 'rgba(255,255,255,0.02)', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', transition: 'all 0.2s' }}
                 >
                   <ChevronLeft size={24} />
@@ -232,6 +264,7 @@ const Home = () => {
                   whileHover={{ scale: 1.1, backgroundColor: 'rgba(0,180,216,0.1)', color: 'var(--accent-primary)', borderColor: 'var(--accent-primary)' }}
                   whileTap={{ scale: 0.9 }}
                   onClick={handleNext}
+                  aria-label="Next services"
                   style={{ width: '48px', height: '48px', borderRadius: '50%', border: '1px solid rgba(255,255,255,0.1)', backgroundColor: 'rgba(255,255,255,0.02)', color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', transition: 'all 0.2s' }}
                 >
                   <ChevronRight size={24} />
@@ -256,7 +289,12 @@ const Home = () => {
                       animate={{ opacity: 1, x: 0, scale: 1 }}
                       exit={{ opacity: 0, x: direction > 0 ? -100 : 100, scale: 0.95 }}
                       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                      style={{ flex: '1 1 calc(33.333% - 16px)', minWidth: '320px', maxWidth: '400px' }}
+                      style={{ 
+                        flex: cardsToShow === 1 ? '1 1 100%' : cardsToShow === 2 ? '1 1 calc(50% - 12px)' : '1 1 calc(33.333% - 16px)',
+                        width: cardsToShow === 1 ? '100%' : 'auto',
+                        minWidth: 0,
+                        maxWidth: cardsToShow === 1 ? '100%' : cardsToShow === 2 ? '500px' : '400px'
+                      }}
                     >
                       <Card hoverEffect className="h-full flex flex-col">
                         <div style={{ width: '56px', height: '56px', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 'var(--space-24)', backgroundColor: 'rgba(255,255,255,0.03)' }}>
@@ -284,10 +322,10 @@ const Home = () => {
         <GlowingDivider />
 
         {/* Tools Marquee Section */}
-        <section style={{ padding: '0 0 var(--space-120)', overflow: 'hidden' }}>
+        <section aria-label="Tools and Technologies" style={{ padding: '0 0 var(--space-120)', overflow: 'hidden' }}>
           <div className="container flex flex-col gap-12 text-center items-center" style={{ marginBottom: '80px' }}>
             <h2 className="text-h2" style={{ textTransform: 'uppercase' }}>&lt; <span className="gradient-text">{t('Tools in my Toolbox')}</span> /&gt;</h2>
-            <p className="text-body-lg" style={{ maxWidth: '600px', color: 'var(--text-medium)' }}>
+            <p className="text-body-lg" style={{ maxWidth: '600px', color: 'rgba(255, 255, 255, 0.78)' }}>
               A carefully curated stack of technologies I use to build scalable, high-performance applications.
             </p>
           </div>
@@ -296,14 +334,25 @@ const Home = () => {
             <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '150px', background: 'linear-gradient(to right, var(--bg-base), transparent)', zIndex: 2, pointerEvents: 'none' }}></div>
             <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '150px', background: 'linear-gradient(to left, var(--bg-base), transparent)', zIndex: 2, pointerEvents: 'none' }}></div>
             
-            <div className="animate-marquee gap-24 px-12">
-              {[...tools, ...tools].map((tool, idx) => (
+            <div className="animate-marquee gap-24 px-12" aria-label="Tools marquee">
+              {tools.map((tool, idx) => (
                 <div 
-                  key={idx} 
+                  key={`tool-${idx}`} 
                   className="tool-card"
                   style={{ minWidth: '180px', height: '180px', flexShrink: 0, backgroundColor: 'rgba(255, 255, 255, 0.02)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 'var(--radius-lg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-24)', cursor: 'pointer' }}
                 >
-                   <img src={tool.icon} alt={tool.name} style={{ width: '64px', height: '64px', filter: tool.filter || 'none', objectFit: 'contain' }} />
+                   <img src={tool.icon} alt="" aria-hidden="true" style={{ width: '64px', height: '64px', filter: tool.filter || 'none', objectFit: 'contain' }} />
+                   <span className="label-spaced" style={{ fontSize: '0.75rem', color: 'var(--text-medium)', fontWeight: 600 }}>{tool.name}</span>
+                </div>
+              ))}
+              {tools.map((tool, idx) => (
+                <div 
+                  key={`tool-dup-${idx}`} 
+                  aria-hidden="true"
+                  className="tool-card"
+                  style={{ minWidth: '180px', height: '180px', flexShrink: 0, backgroundColor: 'rgba(255, 255, 255, 0.02)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 'var(--radius-lg)', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 'var(--space-24)', cursor: 'pointer' }}
+                >
+                   <img src={tool.icon} alt="" style={{ width: '64px', height: '64px', filter: tool.filter || 'none', objectFit: 'contain' }} />
                    <span className="label-spaced" style={{ fontSize: '0.75rem', color: 'var(--text-medium)', fontWeight: 600 }}>{tool.name}</span>
                 </div>
               ))}
@@ -315,10 +364,10 @@ const Home = () => {
         <GlowingDivider />
 
         {/* Trusted Partners Section */}
-        <section style={{ padding: '0 0 var(--space-120)' }}>
+        <section aria-label="Trusted Partners" style={{ padding: '0 0 var(--space-120)' }}>
           <div className="container flex flex-col gap-12 text-center items-center" style={{ marginBottom: '64px' }}>
             <h2 className="text-h2" style={{ textTransform: 'uppercase' }}>&lt; <span className="gradient-text">{t('Trusted Partners')}</span> /&gt;</h2>
-            <p className="text-body-lg" style={{ maxWidth: '600px', color: 'var(--text-medium)' }}>
+            <p className="text-body-lg" style={{ maxWidth: '600px', color: 'rgba(255, 255, 255, 0.78)' }}>
               {t('partners_subtitle')}
             </p>
           </div>
@@ -334,12 +383,20 @@ const Home = () => {
                 
                 {/* Avatar / Visual Side */}
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', minWidth: '180px' }}>
-                  <div style={{ width: '100px', height: '100px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent-primary), #0077b6)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem', fontWeight: 800, color: '#fff', boxShadow: '0 10px 25px rgba(0, 180, 216, 0.3)' }}>
-                    AE
+                  <div style={{ width: '100px', height: '100px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent-primary), #0077b6)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 10px 25px rgba(0, 180, 216, 0.3)', overflow: 'hidden', border: '2px solid rgba(0, 180, 216, 0.5)' }}>
+                    <img src="/ahmed.jpg" alt="Ahmed Esam" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                   <div style={{ textAlign: 'center' }}>
                     <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#fff' }}>{t('Ahmed Esam')}</h3>
                     <p style={{ color: 'var(--accent-primary)', fontSize: '0.9rem', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', marginTop: '4px' }}>{t('Ahmed_Role')}</p>
+                    <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '10px' }}>
+                      <a href="https://github.com/AhmedEsam-415" target="_blank" rel="noopener noreferrer" aria-label="Ahmed Esam GitHub" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = '#fff'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                      </a>
+                      <a href="https://www.linkedin.com/in/ahmed-esam-0bb173297/" target="_blank" rel="noopener noreferrer" aria-label="Ahmed Esam LinkedIn" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = '#fff'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -352,7 +409,7 @@ const Home = () => {
                       </span>
                     ))}
                   </div>
-                  <p style={{ color: 'var(--text-medium)', fontSize: '1.1rem', lineHeight: 1.8, textAlign: 'left' }} className="md-text-center">
+                  <p style={{ color: 'rgba(255, 255, 255, 0.78)', fontSize: '1.1rem', lineHeight: 1.8, textAlign: 'start' }} className="md-text-center">
                     {t('Ahmed_Bio')}
                   </p>
                 </div>
