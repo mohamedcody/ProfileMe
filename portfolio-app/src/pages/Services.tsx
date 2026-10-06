@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle2, CreditCard, MessageSquare, FileText, X } from 'lucide-react';
+import { CheckCircle2, CreditCard, FileText, X } from 'lucide-react';
 import { PageWrapper } from '../components/ui/PageWrapper';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
@@ -8,8 +8,8 @@ import { useTranslation } from 'react-i18next';
 // --- Types & Data ---
 interface ServiceOffering {
   id: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descKey: string;
   priceUSD: string;
   priceEGP: string;
   deliverables: string[];
@@ -18,58 +18,103 @@ interface ServiceOffering {
 
 const servicesData: ServiceOffering[] = [
   {
-    id: 'landing-pages',
-    title: 'Premium Landing Pages',
-    description: 'Stop losing potential clients. I build lightning-fast, visually stunning landing pages engineered to turn traffic into paying customers. Fully responsive, accessible, and optimized for SEO.',
-    priceUSD: '$299',
-    priceEGP: '15,000 EGP',
-    deliverables: ['Custom UI/UX Design', 'Framer Motion Animations', 'Mobile-First Responsive', 'SEO & Performance Optimized'],
-    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop'
-  },
-  {
     id: 'data-automation',
-    title: 'Data & File Automation',
-    description: 'Eliminate manual data entry and save hundreds of hours. I create custom scripts that extract data from PDFs, convert complex Word documents to Excel, and scrape web data automatically.',
-    priceUSD: '$150',
-    priceEGP: '7,500 EGP',
-    deliverables: ['PDF & Word to Excel parsing', 'Automated Web Scraping', 'Data Cleaning & Formatting', 'Custom Python/Node Scripts'],
+    titleKey: 'Data & File Automation',
+    descKey: 'data_desc',
+    priceUSD: '$15',
+    priceEGP: '650 EGP',
+    deliverables: [
+      'PDF & Word to Clean Excel',
+      'Automated Web Scraping',
+      'Data Cleaning & Validation',
+      'Ready-to-run Script + Setup Help'
+    ],
     imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'workflow-bots',
-    title: 'Custom Telegram & AI Bots',
-    description: 'Automate your business processes and customer support with custom Telegram or Discord bots. Manage expenses, send real-time notifications, and handle user queries 24/7.',
-    priceUSD: '$250',
-    priceEGP: '12,500 EGP',
-    deliverables: ['Telegram/Discord Integration', 'Custom Command Routing', 'Database Storage', 'Deployed on reliable servers'],
+    titleKey: 'Custom Telegram & AI Bots',
+    descKey: 'bots_desc',
+    priceUSD: '$25',
+    priceEGP: '1,200 EGP',
+    deliverables: [
+      'Custom Commands & Interactive Menus',
+      'Secure Database Logging',
+      'Instant Real-time Notifications',
+      'Free Cloud Server Setup'
+    ],
     imageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000&auto=format&fit=crop'
   },
   {
-    id: 'fullstack-apps',
-    title: 'Full-Stack Web Apps',
-    description: 'Build powerful, scalable business software from the ground up. I develop complete SaaS MVPs, admin dashboards, and custom web applications using Java Spring Boot and React.',
-    priceUSD: '$899',
-    priceEGP: '45,000 EGP',
-    deliverables: ['Java Spring Boot Backend', 'React/Next.js Frontend', 'PostgreSQL Database', 'Secure Authentication'],
-    imageUrl: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1000&auto=format&fit=crop'
+    id: 'landing-pages',
+    titleKey: 'Premium Landing Pages',
+    descKey: 'landing_desc',
+    priceUSD: '$35',
+    priceEGP: '1,800 EGP',
+    deliverables: [
+      'High-Converting UI/UX Design',
+      'Framer Motion Smooth Animations',
+      'Mobile-First Responsive & Fast',
+      'WhatsApp & Lead Form Integration'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop'
   },
   {
     id: 'api-integration',
-    title: 'API & System Integration',
-    description: 'Connect disparate systems and third-party services seamlessly. I build secure REST APIs and webhooks to ensure your backend operations flow perfectly without human intervention.',
-    priceUSD: 'Custom Quote',
-    priceEGP: 'تسعير مخصص',
-    deliverables: ['REST API Development', 'Third-party Webhooks', 'Secure Authentication (JWT)', 'Performance Monitoring'],
+    titleKey: 'Backend & Secure REST APIs',
+    descKey: 'api_desc',
+    priceUSD: '$30',
+    priceEGP: '1,500 EGP',
+    deliverables: [
+      'Secure Spring Boot REST APIs',
+      'JWT Authentication & Security',
+      'Optimized PostgreSQL Schema',
+      'Clear API Documentation'
+    ],
     imageUrl: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1000&auto=format&fit=crop'
+  },
+  {
+    id: 'fullstack-apps',
+    titleKey: 'Full-Stack Web Apps',
+    descKey: 'apps_desc',
+    priceUSD: '$85',
+    priceEGP: '3,900 EGP',
+    deliverables: [
+      'Full-Stack App (Frontend + Backend)',
+      'Admin Dashboard & Control',
+      'Docker Setup & Deployment',
+      'Free Post-launch Technical Support'
+    ],
+    imageUrl: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1000&auto=format&fit=crop'
   }
 ];
 
 // --- Sub-Components ---
+const WhatsAppIcon = ({ size = 18 }: { size?: number }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" style={{ flexShrink: 0 }}>
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.34C9.36 7.34 9.09 7.4 8.87 7.65C8.64 7.9 8 8.5 8 9.72C8 10.94 8.89 12.12 9.01 12.28C9.13 12.44 10.74 14.94 13.23 16C13.82 16.26 14.28 16.42 14.64 16.53C15.23 16.72 15.77 16.69 16.2 16.63C16.68 16.56 17.67 16.03 17.88 15.45C18.08 14.86 18.08 14.36 18.02 14.26C17.96 14.16 17.8 14.1 17.55 13.98C17.3 13.85 16.07 13.25 15.84 13.16C15.61 13.08 15.45 13.04 15.28 13.29C15.11 13.54 14.63 14.1 14.49 14.26C14.34 14.43 14.2 14.45 13.95 14.32C13.7 14.2 12.89 13.93 11.94 13.08C11.2 12.42 10.7 11.61 10.55 11.36C10.41 11.11 10.54 10.98 10.66 10.85C10.77 10.74 10.91 10.55 11.04 10.41C11.16 10.26 11.2 10.16 11.28 10C11.36 9.83 11.32 9.69 11.26 9.56C11.2 9.44 10.71 8.24 10.5 7.74C10.3 7.25 10.1 7.31 9.95 7.31C9.81 7.31 9.65 7.34 9.53 7.34Z" />
+  </svg>
+);
+
 const ServiceRow = ({ service, index, currency }: { service: ServiceOffering; index: number; currency: 'USD' | 'EGP' }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isEven = index % 2 === 0;
   const currentPrice = currency === 'USD' ? service.priceUSD : service.priceEGP;
   const isCustomQuote = currentPrice === 'Custom Quote' || currentPrice === 'تسعير مخصص';
+  const isArabic = i18n.language === 'ar';
+  const serviceTitle = t(service.titleKey);
+
+  // Professional pre-filled messages tailored to each specific service
+  const discussMessage = isArabic
+    ? `السلام عليكم يا بشمهندس محمد،\nأنا مهتم بمناقشة مشروع بخصوص خدمة: *${serviceTitle}*.\n\n📋 تفاصيل مبدئية:\n• نوع الخدمة: ${serviceTitle}\n• التسعير المرجعي: ${currentPrice}\n\nأود مشاركة تفاصيل متطلبات مشروعي معكم لمناقشة خطة العمل والتنفيذ.`
+    : `Hello Mohamed,\nI would like to discuss a project regarding: *${serviceTitle}*.\n\n📋 Preliminary Details:\n• Service: ${serviceTitle}\n• Reference Price: ${currentPrice}\n\nI'd like to share my requirements and discuss the project scope and timeline with you.`;
+
+  const orderMessage = isArabic
+    ? `السلام عليكم يا بشمهندس محمد،\nأود تأكيد طلب خدمة: *${serviceTitle}* مباشرة.\n\n📋 تفاصيل الطلب:\n• الخدمة: ${serviceTitle}\n• السعر: ${currentPrice}\n\nجاهز للاتفاق وبدء العمل.`
+    : `Hello Mohamed,\nI would like to order: *${serviceTitle}* directly.\n\n📋 Order Details:\n• Service: ${serviceTitle}\n• Pricing: ${currentPrice}\n\nI am ready to proceed with the project kick-off.`;
+
+  const discussWhatsAppUrl = `https://wa.me/201148415128?text=${encodeURIComponent(discussMessage)}`;
+  const orderWhatsAppUrl = `https://wa.me/201148415128?text=${encodeURIComponent(orderMessage)}`;
 
   return (
     <motion.div 
@@ -94,7 +139,7 @@ const ServiceRow = ({ service, index, currency }: { service: ServiceOffering; in
         >
           <img 
             src={service.imageUrl} 
-            alt={service.title} 
+            alt={serviceTitle} 
             style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85 }} 
             loading="lazy"
           />
@@ -113,14 +158,14 @@ const ServiceRow = ({ service, index, currency }: { service: ServiceOffering; in
           letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px',
           border: '1px solid rgba(0,180,216,0.2)'
         }}>
-          {isCustomQuote ? currentPrice : `{t('Starting at')} ${currentPrice}`}
+          {isCustomQuote ? currentPrice : `${t('Starting at')} ${currentPrice}`}
         </div>
 
-        <h2 className="text-h2" style={{ color: '#fff', marginBottom: '16px' }}>{t(service.title)}</h2>
+        <h2 className="text-h2" style={{ color: '#fff', marginBottom: '16px' }}>{serviceTitle}</h2>
         <div style={{ width: '60px', height: '3px', backgroundColor: 'var(--accent-primary)', marginBottom: '24px', borderRadius: '2px' }}></div>
         
         <p className="text-body-lg" style={{ marginBottom: '32px' }}>
-          {service.description}
+          {t(service.descKey)}
         </p>
 
         <div style={{ marginBottom: '40px' }}>
@@ -129,7 +174,7 @@ const ServiceRow = ({ service, index, currency }: { service: ServiceOffering; in
             {service.deliverables.map((item, i) => (
               <li key={i} className="flex items-center gap-12" style={{ color: 'var(--text-medium)', fontSize: '1.05rem' }}>
                 <CheckCircle2 size={18} color="var(--success)" />
-                {item}
+                {t(item)}
               </li>
             ))}
           </ul>
@@ -137,19 +182,44 @@ const ServiceRow = ({ service, index, currency }: { service: ServiceOffering; in
 
         {/* Dual CTA Buttons */}
         <div className="flex gap-16 flex-wrap">
-          <button 
+          <a 
+            href={orderWhatsAppUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-solid-cyber" 
-            style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '14px 28px' }}
-            onClick={() => alert('This would redirect to Stripe Checkout or Fiverr Gig.')}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '14px 28px', textDecoration: 'none' }}
           >
             <CreditCard size={18} /> {t('Order Now')}
-          </button>
+          </a>
           
-          <Link to="/contact" style={{ textDecoration: 'none' }}>
-            <button className="btn-outline-cyber" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '14px 28px' }}>
-              <MessageSquare size={18} /> {t('Discuss Project')}
-            </button>
-          </Link>
+          <a 
+            href={discussWhatsAppUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline-cyber" 
+            style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              gap: '8px', 
+              padding: '14px 28px', 
+              textDecoration: 'none',
+              borderColor: 'rgba(37, 211, 102, 0.4)',
+              color: '#fff',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.borderColor = '#25D366';
+              e.currentTarget.style.color = '#25D366';
+              e.currentTarget.style.boxShadow = '0 0 20px rgba(37, 211, 102, 0.25)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(37, 211, 102, 0.4)';
+              e.currentTarget.style.color = '#fff';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <WhatsAppIcon size={18} /> {t('Discuss Project')}
+          </a>
         </div>
 
       </div>
@@ -159,7 +229,7 @@ const ServiceRow = ({ service, index, currency }: { service: ServiceOffering; in
 
 // --- Main Page Component ---
 const Services = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [currency, setCurrency] = useState<'USD' | 'EGP'>('EGP');
   const [showGuidelines, setShowGuidelines] = useState(false);
 
@@ -193,14 +263,11 @@ const Services = () => {
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
               style={{ 
                 fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', color: 'var(--text-medium)', 
-                lineHeight: 1.8, marginBottom: '64px', 
-                borderLeft: '3px solid var(--accent-primary)', paddingLeft: '32px' 
+                lineHeight: 1.8, marginBottom: '48px', 
+                borderInlineStart: '3px solid var(--accent-primary)', paddingInlineStart: '32px' 
               }}
-            >
-              I deliver <strong style={{ color: '#fff' }}>scalable business solutions</strong>, not just code. 
-              Whether automating manual processes or building high-performance applications, 
-              you get transparent pricing, clear deliverables, and robust engineering.
-            </motion.p>
+              dangerouslySetInnerHTML={{ __html: t('trust_banner') }}
+            />
 
             {/* The Control Toolbar (Clean, Human-designed UI) */}
             <motion.div 
@@ -222,7 +289,7 @@ const Services = () => {
                 onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'}
                 onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}
               >
-                <FileText size={18} style={{ opacity: 0.8 }} /> Client Guidelines
+                <FileText size={18} style={{ opacity: 0.8 }} /> {t('Client Guidelines')}
               </button>
 
               {/* Currency Switcher (SaaS Style) */}
@@ -254,6 +321,31 @@ const Services = () => {
                   </button>
                 </div>
               </div>
+            </motion.div>
+
+            {/* Starter Specials Banner */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px',
+                padding: '16px 28px',
+                backgroundColor: 'rgba(0, 180, 216, 0.08)',
+                border: '1px dashed rgba(0, 180, 216, 0.35)',
+                borderRadius: '16px',
+                marginTop: '32px',
+                textAlign: 'center'
+              }}
+            >
+              <span style={{ fontSize: '1rem', color: '#fff', fontWeight: 600, lineHeight: 1.6 }}>
+                {i18n.language === 'ar' 
+                  ? '🔥 عروض افتتاحية خاصة لأول العملاء — تسليم سريع + تعديلات مجانية ومساعدة كاملة في التشغيل حتى رضاك التام 100%!'
+                  : '🔥 Starter Special Offers for First Clients — Rapid Turnaround + Free Revisions & Setup Help until 100% Satisfied!'}
+              </span>
             </motion.div>
           </div>
 
