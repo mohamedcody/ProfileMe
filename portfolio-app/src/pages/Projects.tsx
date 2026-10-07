@@ -93,8 +93,8 @@ const Projects = () => {
               </motion.div>
             </div>
 
-            <div className="w-full" style={{ flex: 1 }}>
-              <div className="flex items-center gap-16" style={{ marginBottom: 'var(--space-8)' }}>
+            <div className="project-content w-full" style={{ flex: 1, minWidth: 0 }}>
+              <div className="project-heading flex items-center gap-16" style={{ marginBottom: 'var(--space-8)' }}>
                 <h2 className="text-h2" style={{ textTransform: 'uppercase' }}>JobFinder</h2>
                 <span style={{ padding: '4px 12px', backgroundColor: 'rgba(234, 179, 8, 0.1)', color: '#eab308', borderRadius: '50px', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.05em', border: '1px solid rgba(234, 179, 8, 0.2)' }}>
                   IN DEVELOPMENT
@@ -123,7 +123,7 @@ const Projects = () => {
               </div>
 
               {/* Enhanced Buttons */}
-              <div className="flex gap-16 flex-wrap">
+              <div className="project-actions flex gap-16 flex-wrap">
                 <Button 
                   onClick={() => showToast('Platform is currently under development and will be hosted soon! 🚀')}
                   style={{ gap: '8px', padding: '12px 24px' }}
@@ -167,8 +167,8 @@ const Projects = () => {
               </motion.div>
             </div>
 
-            <div className="w-full" style={{ flex: 1 }}>
-              <div className="flex items-center gap-16" style={{ marginBottom: 'var(--space-8)' }}>
+            <div className="project-content w-full" style={{ flex: 1, minWidth: 0 }}>
+              <div className="project-heading flex items-center gap-16" style={{ marginBottom: 'var(--space-8)' }}>
                 <h2 className="text-h2" style={{ textTransform: 'uppercase' }}>Expense Tracker Bot</h2>
               </div>
               <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--accent-primary)', marginBottom: 'var(--space-24)', borderRadius: '2px' }}></div>
@@ -193,7 +193,7 @@ const Projects = () => {
                 ))}
               </div>
 
-              <div className="flex gap-16 flex-wrap">
+              <div className="project-actions flex gap-16 flex-wrap">
                 <a href="https://t.me/Mohamed20_Expense_bot" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
                   <Button style={{ gap: '8px', padding: '12px 24px' }}>
                     Message Bot <ExternalLink size={18}/>

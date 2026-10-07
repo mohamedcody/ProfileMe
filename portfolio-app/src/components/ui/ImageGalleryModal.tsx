@@ -108,6 +108,7 @@ export const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({ isOpen, on
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
+                className="gallery-content"
                 style={{ width: '100%', height: '100%', padding: '0 100px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
                 onClick={(e) => e.stopPropagation()} // Prevent closing if clicking on image area
               >
@@ -165,6 +166,17 @@ export const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({ isOpen, on
           </div>
         </motion.div>
       )}
+      <style>{`
+        .gallery-content {
+          min-width: 0;
+        }
+        @media (max-width: 768px) {
+          .gallery-content { padding: 0 56px; }
+        }
+        @media (max-width: 480px) {
+          .gallery-content { padding: 0 16px; }
+        }
+      `}</style>
     </AnimatePresence>
   );
 };

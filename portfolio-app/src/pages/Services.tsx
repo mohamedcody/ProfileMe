@@ -122,8 +122,8 @@ const ServiceRow = ({ service, index, currency }: { service: ServiceOffering; in
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="flex md-flex-col gap-64 items-center"
-      style={{ flexDirection: isEven ? 'row' : 'row-reverse', position: 'relative' }}
+      className={`service-row ${isEven ? 'service-row-forward' : 'service-row-reverse'} flex md-flex-col gap-64 items-center`}
+      style={{ position: 'relative' }}
     >
       {/* Image Side */}
       <div style={{ flex: '1 1 50%', width: '100%', position: 'relative' }}>

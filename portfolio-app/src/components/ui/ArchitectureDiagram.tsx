@@ -17,19 +17,19 @@ export const ArchitectureDiagram = () => {
       <div className="flex w-full justify-center gap-32 md-flex-col md-items-center">
         <div className="flex flex-col items-center">
           <div style={{ width: '2px', height: '40px', backgroundColor: 'var(--border-subtle)' }}></div>
-          <div style={{ padding: 'var(--space-16)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', color: 'var(--text-medium)', textAlign: 'center', minWidth: '160px' }}>
+          <div className="architecture-node" style={{ padding: 'var(--space-16)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', color: 'var(--text-medium)', textAlign: 'center', minWidth: '160px' }}>
             PostgreSQL
           </div>
         </div>
         <div className="flex flex-col items-center">
           <div style={{ width: '2px', height: '40px', backgroundColor: 'var(--border-subtle)' }}></div>
-          <div style={{ padding: 'var(--space-16)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', color: 'var(--text-medium)', textAlign: 'center', minWidth: '160px' }}>
+          <div className="architecture-node" style={{ padding: 'var(--space-16)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', color: 'var(--text-medium)', textAlign: 'center', minWidth: '160px' }}>
             Vector Search
           </div>
         </div>
         <div className="flex flex-col items-center">
           <div style={{ width: '2px', height: '40px', backgroundColor: 'var(--border-subtle)' }}></div>
-          <div style={{ padding: 'var(--space-16)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', color: 'var(--text-medium)', textAlign: 'center', minWidth: '160px' }}>
+          <div className="architecture-node" style={{ padding: 'var(--space-16)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-md)', color: 'var(--text-medium)', textAlign: 'center', minWidth: '160px' }}>
             AI CV Parsing
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Download, Globe } from 'lucide-react';
+import { Download, Globe, Menu, X } from 'lucide-react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
@@ -15,6 +15,7 @@ const Navbar = () => {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const { scrollY } = useScroll();
 
@@ -71,7 +72,7 @@ const Navbar = () => {
         }}
       >
         {/* Left Side: Logo & Status Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+        <div className="navbar-brand" style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
           <Link to="/" style={{ fontSize: '1.4rem', fontWeight: 900, textDecoration: 'none', color: '#fff', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center' }}>
             MOHAMED<span style={{ color: 'var(--accent-primary)' }}>.</span>
           </Link>
@@ -147,7 +148,7 @@ const Navbar = () => {
 
         {/* Right Side: GitHub & Resume */}
         
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="navbar-actions" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           
           {/* Language Switcher */}
           <motion.button 
@@ -165,6 +166,7 @@ const Navbar = () => {
           </motion.button>
 
           <motion.a 
+            className="desktop-github"
             href="https://github.com/mohamedcody" target="_blank" rel="noopener noreferrer"
             whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.1)' }} whileTap={{ scale: 0.95 }} 
             style={{ 
@@ -186,13 +188,88 @@ const Navbar = () => {
               <Download size={16} /> {t('Resume')}
             </button>
           </motion.div>
+
+          <motion.button
+            type="button"
+            className="mobile-menu-toggle"
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen((open) => !open)}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </motion.button>
         </div>
-        
       </motion.nav>
+
+      {isMenuOpen && (
+        <motion.nav
+          className="mobile-menu"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          aria-label="Mobile navigation"
+        >
+          {links.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              onClick={() => setIsMenuOpen(false)}
+              className={location.pathname === link.path ? 'mobile-menu-link active' : 'mobile-menu-link'}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </motion.nav>
+      )}
       
       <style>{`
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .hidden-mobile { display: none !important; }
+          .navbar-brand { gap: 10px !important; }
+          .navbar-brand > div { display: none !important; }
+          .navbar-actions { gap: 8px !important; }
+          .navbar-actions .btn-solid-cyber { display: none !important; }
+          .desktop-github { display: none !important; }
+          .mobile-menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            cursor: pointer;
+          }
+          .mobile-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: min(100%, 360px);
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(10, 12, 16, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+          }
+          .mobile-menu-link {
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: rgba(255,255,255,0.7);
+            font-weight: 500;
+          }
+          .mobile-menu-link.active,
+          .mobile-menu-link:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.08);
+          }
+        }
+        @media (min-width: 901px) {
+          .mobile-menu-toggle,
+          .mobile-menu { display: none; }
         }
       `}</style>
     </motion.div>
