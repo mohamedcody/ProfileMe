@@ -224,14 +224,14 @@ const Home = () => {
         {/* {t('How I Can Help')} Section - Auto Slider w/ Controls */}
         <section aria-label="How I Can Help">
           <div className="container">
-            <div className="flex justify-between items-end mb-48 gap-24 flex-wrap" style={{ alignItems: 'flex-end' }}>
+            <div className="service-heading-row flex justify-between items-end mb-48 gap-24 flex-wrap" style={{ alignItems: 'flex-end' }}>
               <div className="flex flex-col gap-12">
                 <h2 className="text-h2" style={{ textTransform: 'uppercase' }}>&lt; <span className="gradient-text">How I Can Help</span> /&gt;</h2>
                 <p className="text-body-lg" style={{ maxWidth: '600px', color: 'rgba(255, 255, 255, 0.78)' }}>{t('How_subtitle')}</p>
               </div>
 
               {/* Navigation Controls & Pagination Indicator */}
-              <div className="flex gap-16 items-center">
+              <div className="service-controls flex gap-16 items-center">
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginInlineEnd: '8px' }}>
                   {servicesData.map((_, i) => (
                     <button
@@ -322,7 +322,7 @@ const Home = () => {
         <GlowingDivider />
 
         {/* Tools Marquee Section */}
-        <section aria-label="Tools and Technologies" style={{ padding: '0 0 var(--space-120)', overflow: 'hidden' }}>
+        <section className="tools-marquee-section" aria-label="Tools and Technologies" style={{ padding: '0 0 var(--space-120)', overflow: 'clip' }}>
           <div className="container flex flex-col gap-12 text-center items-center" style={{ marginBottom: '80px' }}>
             <h2 className="text-h2" style={{ textTransform: 'uppercase' }}>&lt; <span className="gradient-text">{t('Tools in my Toolbox')}</span> /&gt;</h2>
             <p className="text-body-lg" style={{ maxWidth: '600px', color: 'rgba(255, 255, 255, 0.78)' }}>

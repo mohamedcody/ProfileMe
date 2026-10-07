@@ -81,7 +81,7 @@ const Contact = () => {
               initial={{ opacity: 0, x: -30 }} 
               animate={{ opacity: 1, x: 0 }} 
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              style={{ flex: '1 1 45%' }}
+              style={{ flex: '1 1 45%', minWidth: 0 }}
             >
               <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 3.5rem)', fontWeight: 800, lineHeight: 1.15, textTransform: 'uppercase', letterSpacing: '-0.01em', marginBottom: 'var(--space-24)' }}>
                 {t('contact_title_1')} <br/>
@@ -101,7 +101,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '4px', fontWeight: 600 }}>{t('Email')}</p>
-                    <p style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--text-high)' }}>mohamedcody18@gmail.com</p>
+                    <p style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--text-high)', overflowWrap: 'anywhere' }}>mohamedcody18@gmail.com</p>
                   </div>
                 </a>
 
@@ -157,7 +157,7 @@ const Contact = () => {
               initial={{ opacity: 0, y: 30 }} 
               animate={{ opacity: 1, y: 0 }} 
               transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              style={{ flex: '1 1 55%', width: '100%' }}
+              style={{ flex: '1 1 55%', width: '100%', minWidth: 0 }}
             >
               <div style={{ backgroundColor: 'rgba(20,20,20,0.4)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: '24px', padding: '48px', boxShadow: '0 20px 40px rgba(0,0,0,0.3)' }}>
                 
