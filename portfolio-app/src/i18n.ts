@@ -17,6 +17,28 @@ const resources = {
       "Available": "Available",
       "Resume": "Resume",
       
+      "Software_Engineer_Role": "Software Engineer",
+      "Software_Engineer_Desc": "Building secure, scalable, and modern full-stack applications focused on speed, clean architecture, and exceptional user experiences.",
+      "JobFinder_Desc": "A full-stack job search platform designed to help job seekers discover relevant opportunities through intelligent matching and robust user profiles.",
+      "JobFinder_Decisions": "Key Engineering Decisions:",
+      "JobFinder_Dec1": "Implemented <strong style=\"color: var(--text-high)\">JWT authentication</strong> & Spring Security.",
+      "JobFinder_Dec2": "Built an <strong style=\"color: var(--text-high)\">AI-assisted CV analysis</strong> engine to extract skills.",
+      "JobFinder_Dec3": "Utilized <strong style=\"color: var(--text-high)\">Vector search</strong> for semantic matching.",
+      "JobFinder_Dec4": "Designed a normalized <strong style=\"color: var(--text-high)\">PostgreSQL</strong> schema.",
+      "ExpenseBot_Desc": "A robust Expense Tracker Telegram bot developed using Java and Spring Boot. It seamlessly integrates with the Telegram Bot API to process user commands, automate workflows, and provide instant interactive responses.",
+      "ExpenseBot_Decisions": "Key Engineering Decisions:",
+      "ExpenseBot_Dec1": "Integrated <strong style=\"color: var(--text-high)\">Telegram Bot API</strong> for seamless real-time messaging and event handling.",
+      "ExpenseBot_Dec2": "Built a scalable architecture using <strong style=\"color: var(--text-high)\">Spring Boot</strong> for rapid and secure request processing.",
+      "ExpenseBot_Dec3": "Engineered a dynamic command routing system to parse and execute user inputs efficiently.",
+      "ExpenseBot_Dec4": "Optimized external API calls to ensure minimal latency and high system availability.",
+      "Bot_Header": "Expense Tracker Bot",
+      "Bot_Online": "online",
+      "Bot_Msg1_User": "/add 50 Coffee",
+      "Bot_Msg1_Bot": "✅ Added! <br/>💰 <strong>$50.00</strong> spent on Coffee.<br/><span style=\"font-size: 0.8rem; color: var(--text-muted)\">Daily total: $75.00</span>",
+      "Bot_Msg2_User": "/stats weekly",
+      "Bot_Msg2_Bot": "📊 <strong>Weekly Summary:</strong><br/>☕ Coffee: $50.00<br/>🍔 Food: $120.00<br/>🚗 Transport: $30.00<br/><strong>Total: $200.00</strong>",
+      "Message Bot": "Message Bot",
+      
       "Hello, I am": "Hello, I am",
       "Full-stack Developer": "Full-stack Developer",
       "Building seamless digital experiences": "Building seamless digital experiences and robust backend systems with modern architecture.",
@@ -159,6 +181,28 @@ const resources = {
       "Available": "متاح للعمل",
       "Resume": "السيرة الذاتية",
       
+      "Software_Engineer_Role": "مهندس برمجيات",
+      "Software_Engineer_Desc": "أبني تطبيقات ويب متكاملة، آمنة، وقابلة للتوسع مع التركيز على السرعة، المعمارية النظيفة، وتجربة المستخدم الاستثنائية.",
+      "JobFinder_Desc": "منصة شاملة للبحث عن الوظائف مصممة لمساعدة الباحثين عن عمل في اكتشاف الفرص المناسبة من خلال المطابقة الذكية وملفات تعريف المستخدم القوية.",
+      "JobFinder_Decisions": "أهم القرارات الهندسية:",
+      "JobFinder_Dec1": "تنفيذ <strong style=\"color: var(--text-high)\">مصادقة JWT</strong> و Spring Security.",
+      "JobFinder_Dec2": "بناء محرك <strong style=\"color: var(--text-high)\">تحليل سيرة ذاتية بالذكاء الاصطناعي</strong> لاستخراج المهارات.",
+      "JobFinder_Dec3": "استخدام <strong style=\"color: var(--text-high)\">Vector search</strong> للمطابقة الدلالية.",
+      "JobFinder_Dec4": "تصميم هيكل <strong style=\"color: var(--text-high)\">PostgreSQL</strong> محسن.",
+      "ExpenseBot_Desc": "بوت تليجرام متطور لتتبع المصروفات تم تطويره باستخدام Java و Spring Boot. يتكامل بسلاسة مع واجهة برمجة تطبيقات Telegram لمعالجة أوامر المستخدم، وأتمتة سير العمل، وتقديم استجابات تفاعلية فورية.",
+      "ExpenseBot_Decisions": "أهم القرارات الهندسية:",
+      "ExpenseBot_Dec1": "التكامل مع <strong style=\"color: var(--text-high)\">Telegram Bot API</strong> للمراسلة الفورية ومعالجة الأحداث.",
+      "ExpenseBot_Dec2": "بناء بنية قابلة للتوسع باستخدام <strong style=\"color: var(--text-high)\">Spring Boot</strong> لمعالجة الطلبات بسرعة وأمان.",
+      "ExpenseBot_Dec3": "تصميم نظام توجيه أوامر ديناميكي لتحليل وتنفيذ مدخلات المستخدم بكفاءة.",
+      "ExpenseBot_Dec4": "تحسين استدعاءات API الخارجية لضمان الحد الأدنى من التأخير والتوافر العالي.",
+      "Bot_Header": "Expense Tracker Bot",
+      "Bot_Online": "متصل",
+      "Bot_Msg1_User": "/add 50 قهوة",
+      "Bot_Msg1_Bot": "✅ تم الإضافة! <br/>💰 <strong>$50.00</strong> صُرفت على القهوة.<br/><span style=\"font-size: 0.8rem; color: var(--text-muted)\">الإجمالي اليومي: $75.00</span>",
+      "Bot_Msg2_User": "/stats أسبوعي",
+      "Bot_Msg2_Bot": "📊 <strong>ملخص الأسبوع:</strong><br/>☕ قهوة: $50.00<br/>🍔 طعام: $120.00<br/>🚗 مواصلات: $30.00<br/><strong>الإجمالي: $200.00</strong>",
+      "Message Bot": "راسل البوت",
+      
       "Hello, I am": "مرحباً، أنا",
       "Full-stack Developer": "مطور برمجيات شامل (Full-Stack)",
       "Building seamless digital experiences": "أبني تجارب رقمية سلسة وأنظمة خلفية قوية باستخدام أحدث التقنيات.",
@@ -292,7 +336,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: "en", // default
+    lng: "ar", // default
     fallbackLng: "en",
     interpolation: {
       escapeValue: false
