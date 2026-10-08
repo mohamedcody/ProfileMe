@@ -156,8 +156,8 @@ const Home = () => {
                   textShadow: '0 0 30px rgba(0, 180, 216, 0.2)'
                 }}>SAAD</span>
               </motion.h1>
-              <motion.h2 variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } } }} style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', fontWeight: 500, color: 'rgba(255,255,255,0.85)', marginBottom: '32px', letterSpacing: '0.02em' }}>Software Engineer</motion.h2>
-              <motion.p variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } } }} className="text-body" style={{ marginBottom: '48px', maxWidth: '480px', color: 'rgba(255,255,255,0.78)', lineHeight: 1.6, fontSize: '1.05rem' }}>Building secure, scalable, and modern full-stack applications focused on speed, clean architecture, and exceptional user experiences.</motion.p>
+              <motion.h2 variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } } }} style={{ fontSize: 'clamp(1.25rem, 2vw, 1.75rem)', fontWeight: 500, color: 'rgba(255,255,255,0.85)', marginBottom: '32px', letterSpacing: '0.02em' }}>{t("Software_Engineer_Role")}</motion.h2>
+              <motion.p variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } } }} className="text-body" style={{ marginBottom: '48px', maxWidth: '480px', color: 'rgba(255,255,255,0.78)', lineHeight: 1.6, fontSize: '1.05rem' }} dangerouslySetInnerHTML={{ __html: t("Software_Engineer_Desc") }}></motion.p>
               
               <motion.div variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } } }} className="flex gap-16 flex-wrap">
                 <Link to="/projects" className="btn-solid-cyber" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
