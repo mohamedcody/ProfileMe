@@ -101,3 +101,7 @@ npm run build
 ## 📄 License
 
 This project is open-source and available for personal and portfolio use.
+
+---
+
+> 📅 **Last Updated:** October 2026
