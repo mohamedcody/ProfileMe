@@ -1,5 +1,10 @@
 # 🚀 ProfileMe — Personal Portfolio & Showcase
 
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 A modern, responsive, and interactive personal portfolio web application built with **React 19**, **TypeScript**, and **Vite**. Features full bilingual support (Arabic & English), smooth animations, modern UI components, and direct contact integration.
 
 ---
@@ -80,12 +85,25 @@ Ensure you have [Node.js](https://nodejs.org/) (v18 or higher) and `npm` install
 
 4. Open your browser and navigate to `http://localhost:5173`.
 
-### Build for Production
+---
 
-To create an optimized production build:
-```bash
-npm run build
-```
+## 📜 Available Scripts
+
+Inside the `portfolio-app` directory, you can run the following commands:
+
+| Script | Command | Description |
+| :--- | :--- | :--- |
+| **Dev** | `npm run dev` | Runs the Vite dev server with hot module replacement (HMR). |
+| **Build** | `npm run build` | Compiles TypeScript and creates an optimized production bundle. |
+| **Preview** | `npm run preview` | Locally serves and previews the production build. |
+| **Lint** | `npm run lint` | Runs `oxlint` to verify code quality and detect issues fast. |
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+Feel free to open an issue or submit a pull request on the [GitHub repository](https://github.com/mohamedcody/ProfileMe).
 
 ---
 
@@ -100,7 +118,7 @@ npm run build
 
 ## 📄 License
 
-This project is open-source and available for personal and portfolio use.
+This project is open-source and available under the [MIT License](LICENSE).
 
 ---
 
