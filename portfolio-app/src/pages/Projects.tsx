@@ -22,6 +22,16 @@ const Projects = () => {
     { src: '/image/6.png', caption: 'Application Tracking and Management' }
   ];
 
+  const ahlMasrGalleryImages = [
+    { src: '/image/ahlmasr/hero.png', caption: 'Ahl Masr Restaurant - Landing Page Hero & Brand Identity' },
+    { src: '/image/ahlmasr/offers.png', caption: 'Royal Savings & Special Combo Deals' },
+    { src: '/image/ahlmasr/menu.png', caption: 'Official Restaurant Menu & Meal Customization' },
+    { src: '/image/ahlmasr/gallery.png', caption: 'Food Dishes & Atmosphere Visual Gallery' },
+    { src: '/image/ahlmasr/about.png', caption: 'Restaurant Story, Branches & Hotline Direct Ordering' }
+  ];
+
+  const [activeGalleryImages, setActiveGalleryImages] = useState(jobfinderGalleryImages);
+
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 4000);
@@ -133,7 +143,10 @@ const Projects = () => {
                 
                 <Button 
                   variant="outline" 
-                  onClick={() => setIsGalleryOpen(true)}
+                  onClick={() => {
+                    setActiveGalleryImages(jobfinderGalleryImages);
+                    setIsGalleryOpen(true);
+                  }}
                   style={{ gap: '8px', padding: '12px 24px', borderColor: 'rgba(234, 179, 8, 0.5)', color: '#eab308' }}
                 >
                   <ImageIcon size={18}/> View Image
@@ -154,7 +167,7 @@ const Projects = () => {
           {/* Project 2: Telegram Bot */}
           <motion.div 
             initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }}
-            className="flex md-flex-col-reverse gap-64 items-center" style={{ flexDirection: 'row-reverse' }}
+            className="flex md-flex-col-reverse gap-64 items-center" style={{ flexDirection: 'row-reverse', marginBottom: 'var(--space-120)' }}
           >
             <div className="w-full relative" style={{ flex: 1 }}>
               <div style={{ position: 'absolute', top: '-40px', right: '-20px', fontSize: '180px', fontWeight: 700, color: 'rgba(255,255,255,0.02)', zIndex: 0, lineHeight: 1 }}>02</div>
@@ -238,14 +251,98 @@ const Projects = () => {
               </div>
             </div>
           </motion.div>
-</div>
+
+          {/* Divider */}
+          <div style={{ height: '1px', backgroundColor: 'var(--border-subtle)', margin: '0 auto var(--space-120)', width: '100%' }}></div>
+
+          {/* Project 3: Ahl Masr Restaurant & Cafe */}
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6 }}
+            className="flex md-flex-col gap-64 items-center"
+          >
+            <div className="w-full relative" style={{ flex: 1 }}>
+              <div style={{ position: 'absolute', top: '-40px', left: '-20px', fontSize: '180px', fontWeight: 700, color: 'rgba(255,255,255,0.02)', zIndex: 0, lineHeight: 1 }}>03</div>
+              <motion.div 
+                whileHover={{ scale: 1.02, y: -5 }} transition={{ duration: 0.4 }}
+                onClick={() => {
+                  setActiveGalleryImages(ahlMasrGalleryImages);
+                  setIsGalleryOpen(true);
+                }}
+                style={{ height: '400px', backgroundColor: 'var(--surface-1)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border-subtle)', position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--shadow-sm)', overflow: 'hidden', cursor: 'pointer' }}
+              >
+                <img src="/image/ahlmasr/hero.png" alt="Ahl Masr Restaurant & Cafe" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.88, borderRadius: 'var(--radius-lg)' }} />
+                <div style={{ position: 'absolute', bottom: '16px', right: '16px', backgroundColor: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(8px)', color: '#fff', padding: '6px 14px', borderRadius: '50px', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '6px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <ImageIcon size={14} color="var(--accent-primary)" /> {t("5 Screenshots")}
+                </div>
+              </motion.div>
+            </div>
+
+            <div className="project-content w-full" style={{ flex: 1, minWidth: 0 }}>
+              <div className="project-heading flex items-center gap-16" style={{ marginBottom: 'var(--space-8)' }}>
+                <h2 className="text-h2" style={{ textTransform: 'uppercase' }}>{t("AhlMasr_Title")}</h2>
+                <span style={{ padding: '4px 12px', backgroundColor: 'rgba(34, 197, 94, 0.1)', color: '#22c55e', borderRadius: '50px', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.05em', border: '1px solid rgba(34, 197, 94, 0.2)' }}>
+                  {t("LIVE_PROJECT")}
+                </span>
+              </div>
+              <div style={{ width: '60px', height: '4px', backgroundColor: 'var(--accent-primary)', marginBottom: 'var(--space-24)', borderRadius: '2px' }}></div>
+              
+              <p className="text-body-lg" style={{ marginBottom: 'var(--space-24)' }}>
+                {t("AhlMasr_Desc")}
+              </p>
+              
+              <div style={{ marginBottom: 'var(--space-32)' }}>
+                <h4 className="text-body" style={{ color: 'var(--text-high)', marginBottom: 'var(--space-12)', fontWeight: 600 }}>{t("JobFinder_Decisions")}</h4>
+                <ul className="text-body flex flex-col gap-8" style={{ paddingLeft: 'var(--space-24)' }}>
+                  <li dangerouslySetInnerHTML={{ __html: t("AhlMasr_Dec1") }} />
+                  <li dangerouslySetInnerHTML={{ __html: t("AhlMasr_Dec2") }} />
+                  <li dangerouslySetInnerHTML={{ __html: t("AhlMasr_Dec3") }} />
+                  <li dangerouslySetInnerHTML={{ __html: t("AhlMasr_Dec4") }} />
+                </ul>
+              </div>
+
+              <div className="flex gap-16 items-center" style={{ marginBottom: 'var(--space-32)', flexWrap: 'wrap' }}>
+                {['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'REST APIs', 'Responsive UX'].map(tech => (
+                  <span key={tech} style={{ padding: '6px 16px', borderRadius: 'var(--radius-full)', border: '1px solid var(--border-subtle)', fontSize: 'var(--text-caption)', color: 'var(--accent-primary)', backgroundColor: 'rgba(0,180,216,0.05)' }}>{tech}</span>
+                ))}
+              </div>
+
+              {/* Enhanced Buttons */}
+              <div className="project-actions flex gap-16 flex-wrap">
+                <Button 
+                  onClick={() => showToast('Ahl Masr digital platform is active & accepting orders! 🍗')}
+                  style={{ gap: '8px', padding: '12px 24px' }}
+                >
+                  Live Demo <ExternalLink size={18}/>
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    setActiveGalleryImages(ahlMasrGalleryImages);
+                    setIsGalleryOpen(true);
+                  }}
+                  style={{ gap: '8px', padding: '12px 24px', borderColor: 'rgba(0, 180, 216, 0.5)', color: 'var(--accent-primary)' }}
+                >
+                  <ImageIcon size={18}/> View Gallery
+                </Button>
+
+                <a href="https://github.com/mohamedcody/marwa" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                  <Button variant="outline" style={{ gap: '8px', padding: '12px 24px' }}>
+                    <Code2 size={18}/> Source Code
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </motion.div>
+
+        </div>
       </div>
       
       {/* Premium Full-Screen Gallery Modal */}
       <ImageGalleryModal 
         isOpen={isGalleryOpen} 
         onClose={() => setIsGalleryOpen(false)} 
-        images={jobfinderGalleryImages} 
+        images={activeGalleryImages} 
       />
       
     </PageWrapper>
