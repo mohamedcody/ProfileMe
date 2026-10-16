@@ -24,6 +24,14 @@ A modern, responsive, and interactive personal portfolio web application built w
 
 ---
 
+## 💼 Featured Case Studies
+
+- 🔍 **JobFinder Platform**: Full-stack intelligent job search and recruitment platform built with Java, Spring Boot, React, and PostgreSQL.
+- 🤖 **Expense Tracker Bot**: Real-time automated financial management bot integrated with Telegram Bot API and Spring Boot.
+- 🍽️ **Ahl Masr Restaurant & Cafe**: Modern, high-converting digital platform featuring interactive menu filtering, royal combo deals, and rich visual media gallery.
+
+---
+
 ## 🛠️ Tech Stack
 
 - **Framework**: [React 19](https://react.dev/)
@@ -122,4 +130,4 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 ---
 
-> 📅 **Last Updated:** October 2026
+> 📅 **Last Updated:** October 16, 2026
