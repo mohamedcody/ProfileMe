@@ -3,7 +3,7 @@
 ## 1. Personal Information
 
 - **Name:** Mohamed Saad
-- **Title:** Software Engineer
+- **Title:** Digital Solutions Developer
 - **Location:** Cairo, Egypt
 - **Email:** mohamedcody18@gmail.com
 - **Phone:** +20 1148415128
@@ -14,7 +14,7 @@
 
 ## 2. Professional Summary
 
-Highly motivated Software Engineer with experience in designing and developing scalable web applications using Java, Spring Boot, React, and Next.js.
+Highly motivated Digital Solutions Developer with experience in designing and developing scalable web applications using Java, Spring Boot, React, and Next.js.
 
 Passionate about building robust backend architectures, securing APIs, and integrating AI models to solve real-world problems.
 

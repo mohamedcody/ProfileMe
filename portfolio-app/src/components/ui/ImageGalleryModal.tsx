@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -15,33 +15,45 @@ interface ImageGalleryModalProps {
 
 export const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({ isOpen, onClose, images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [hasError, setHasError] = useState(false);
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+
+  if (isOpen !== prevIsOpen) {
+    setPrevIsOpen(isOpen);
+    if (isOpen) {
+      setCurrentIndex(0);
+      setHasError(false);
+    }
+  }
+
+  const handleNext = useCallback(() => {
+    setHasError(false);
+    setCurrentIndex((prev) => (images.length === 0 ? 0 : prev === images.length - 1 ? 0 : prev + 1));
+  }, [images.length]);
+
+  const handlePrev = useCallback(() => {
+    setHasError(false);
+    setCurrentIndex((prev) => (images.length === 0 ? 0 : prev === 0 ? images.length - 1 : prev - 1));
+  }, [images.length]);
 
   // Lock body scroll when modal is open & Handle keyboard navigation
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
+    if (!isOpen) return;
 
-      const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') onClose();
-        if (e.key === 'ArrowRight') handleNext();
-        if (e.key === 'ArrowLeft') handlePrev();
-      };
+    document.body.style.overflow = 'hidden';
 
-      window.addEventListener('keydown', handleKeyDown);
-      return () => {
-        document.body.style.overflow = 'auto';
-        window.removeEventListener('keydown', handleKeyDown);
-      };
-    }
-  }, [isOpen]);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'ArrowLeft') handlePrev();
+    };
 
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = 'auto';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose, handleNext, handlePrev]);
 
   return (
     <AnimatePresence>
@@ -114,21 +126,26 @@ export const ImageGalleryModal: React.FC<ImageGalleryModalProps> = ({ isOpen, on
               >
                 <div style={{ position: 'relative', width: '100%', height: '100%', maxHeight: 'calc(80vh - 60px)', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '16px', overflow: 'hidden' }}>
                   {/* Image */}
-                  <img
-                    src={images[currentIndex].src}
-                    alt={images[currentIndex].caption}
-                    style={{
-                      maxWidth: '100%', maxHeight: '100%',
-                      objectFit: 'contain',
-                      borderRadius: '12px',
-                      boxShadow: '0 20px 40px rgba(0,0,0,0.5)'
-                    }}
-                    // Fallback if image not found
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                      e.currentTarget.parentElement!.innerHTML = '<div style="color:var(--text-muted); font-size:1.2rem; text-align:center;">Image not found:<br/>' + images[currentIndex].src + '<br/><br/>Please place the image in the public folder.</div>';
-                    }}
-                  />
+                  {hasError ? (
+                    <div style={{ color: 'var(--text-muted)', fontSize: '1.2rem', textAlign: 'center', padding: '24px' }}>
+                      Image not found:<br />
+                      {images[currentIndex]?.src}
+                      <br /><br />
+                      Please place the image in the public folder.
+                    </div>
+                  ) : (
+                    <img
+                      src={images[currentIndex]?.src}
+                      alt={images[currentIndex]?.caption || 'Gallery preview'}
+                      style={{
+                        maxWidth: '100%', maxHeight: '100%',
+                        objectFit: 'contain',
+                        borderRadius: '12px',
+                        boxShadow: '0 20px 40px rgba(0,0,0,0.5)'
+                      }}
+                      onError={() => setHasError(true)}
+                    />
+                  )}
                 </div>
 
                 {/* Caption Area */}

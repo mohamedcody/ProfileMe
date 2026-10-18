@@ -1,32 +1,58 @@
-# React + TypeScript + Vite
+# 💻 Portfolio Client App (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Interactive, high-performance personal portfolio and business showcase application built with modern web technologies.
 
-Currently, two official plugins are available:
+## 🚀 Core Technologies
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19**: Modern UI rendering with concurrency and functional hooks.
+- **TypeScript**: Strict type-checking and clean developer ergonomics.
+- **Vite 8**: Next-generation frontend tooling with lightning-fast HMR and bundling.
+- **Framer Motion**: Smooth scroll-triggered animations and modal transitions.
+- **i18next / react-i18next**: Complete bilingual localization (Arabic RTL & English LTR).
+- **Lucide React**: Clean and lightweight iconography.
 
-## React Compiler
+## 📁 Architecture & Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```text
+src/
+├── assets/          # Static SVGs, images, and brand assets
+├── components/      # Modular components
+│   ├── ui/          # Reusable design system (Button, Card, Modal, PageWrapper)
+│   ├── Navbar.tsx   # Responsive navigation with language toggle
+│   ├── Footer.tsx   # Social links, copyright, and status badge
+│   └── Layout.tsx   # Main application wrapper
+├── data/            # Static configuration datasets (Team, Services, Projects)
+├── pages/           # Application views
+│   ├── Home.tsx     # Hero banner, About section, Tech marquee, and Partners
+│   ├── Projects.tsx # Case studies showcase with full-screen gallery modal
+│   ├── Services.tsx # Client services catalog with live currency switcher
+│   ├── Team.tsx     # Engineering team profiles and roles
+│   └── Contact.tsx  # Direct WhatsApp and lead generation form
+├── i18n.ts          # Localization resources (Arabic & English)
+├── index.css        # Cyberpunk/dark mode design tokens & CSS variables
+├── App.tsx          # Client-side router configuration
+└── main.tsx         # React application bootstrap
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## 🛠️ Development & Build Commands
+
+```bash
+# Run local development server with Hot Module Replacement (HMR)
+npm run dev
+
+# Compile TypeScript and build for production
+npm run build
+
+# Run fast code quality checks using Oxlint
+npm run lint
+
+# Preview the production build locally
+npm run preview
+```
+
+## 🌐 Localization (i18n)
+
+The application supports real-time bilingual switching between English and Arabic. When switching to Arabic:
+- The document direction is automatically toggled to `dir="rtl"`.
+- Layout elements and animations mirror naturally.
+- All dynamic copy is loaded via namespaced translation keys in `src/i18n.ts`.

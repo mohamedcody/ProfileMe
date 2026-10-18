@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { Mail, Phone, ArrowUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -105,7 +107,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="flex justify-between items-center md-flex-col gap-24" style={{ paddingTop: 'var(--space-32)', borderTop: '1px solid var(--border-subtle)' }}>
           <div className="text-sm" style={{ color: 'var(--text-muted)' }}>
-            Designed & Built by <strong style={{ color: 'var(--text-high)' }}>Mohamed Saad</strong> &bull; &copy; {new Date().getFullYear()} All rights reserved.
+            Designed & Built by <strong style={{ color: 'var(--text-high)' }}>Mohamed Saad</strong> &bull; &copy; {CURRENT_YEAR} All rights reserved.
           </div>
           <button 
             onClick={scrollToTop} 
