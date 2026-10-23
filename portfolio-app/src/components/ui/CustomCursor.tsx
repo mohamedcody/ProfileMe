@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 export const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isInsideWindow, setIsInsideWindow] = useState(false);
   const [isVisible] = useState(() => {
     if (typeof window !== 'undefined' && window.matchMedia) {
       return !window.matchMedia('(pointer: coarse)').matches;
@@ -16,34 +17,46 @@ export const CustomCursor = () => {
 
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
+      setIsInsideWindow(true);
+    };
+
+    const handleMouseLeave = () => {
+      setIsInsideWindow(false);
+      setIsHovering(false);
+    };
+
+    const handleMouseEnter = () => {
+      setIsInsideWindow(true);
     };
     
     const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      // Check if hovering over interactive elements
-      if (
-        target.tagName.toLowerCase() === 'button' || 
-        target.tagName.toLowerCase() === 'a' || 
-        target.closest('button') || 
-        target.closest('a') ||
-        target.classList.contains('tool-card')
-      ) {
-        setIsHovering(true);
-      } else {
+      const target = e.target;
+      if (!(target instanceof Element)) {
         setIsHovering(false);
+        return;
       }
+
+      // Check safely if hovering over interactive elements
+      const isInteractive = Boolean(
+        target.closest('button, a, input, textarea, select, [role="button"], .tool-card')
+      );
+      setIsHovering(isInteractive);
     };
 
     window.addEventListener('mousemove', updateMousePosition);
     window.addEventListener('mouseover', handleMouseOver);
+    document.documentElement.addEventListener('mouseleave', handleMouseLeave);
+    document.documentElement.addEventListener('mouseenter', handleMouseEnter);
     
     return () => {
       window.removeEventListener('mousemove', updateMousePosition);
       window.removeEventListener('mouseover', handleMouseOver);
+      document.documentElement.removeEventListener('mouseleave', handleMouseLeave);
+      document.documentElement.removeEventListener('mouseenter', handleMouseEnter);
     };
   }, [isVisible]);
 
-  if (!isVisible) return null;
+  if (!isVisible || !isInsideWindow) return null;
 
   return (
     <>

@@ -39,7 +39,7 @@ const Footer = () => {
               </motion.a>
               
               <motion.a 
-                href="#" target="_blank" rel="noopener noreferrer" 
+                href="https://www.linkedin.com/in/mohamed-saad-394b98372/?isSelfProfile=true" target="_blank" rel="noopener noreferrer" 
                 className="social-btn" aria-label="LinkedIn"
                 whileHover={{ y: -6, scale: 1.1, color: 'var(--accent-primary)', borderColor: 'var(--accent-primary)', boxShadow: '0 10px 25px rgba(0, 180, 216, 0.25)', backgroundColor: 'rgba(0,180,216,0.05)' }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
