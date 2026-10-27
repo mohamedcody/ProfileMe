@@ -19,10 +19,27 @@ const Navbar = () => {
   const location = useLocation();
   const { scrollY } = useScroll();
 
+  const [prevPathname, setPrevPathname] = useState(location.pathname);
+  if (location.pathname !== prevPathname) {
+    setPrevPathname(location.pathname);
+    setIsMenuOpen(false);
+  }
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Automatically close mobile menu when Escape key is pressed
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   // Smart Navbar: Hide on scroll down, show on scroll up
@@ -51,7 +68,7 @@ const Navbar = () => {
       }}
       animate={isHidden ? "hidden" : "visible"}
       transition={{ duration: 0.35, ease: "easeInOut" }}
-      style={{ display: 'flex', justifyContent: 'center', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, padding: isScrolled ? '16px 20px' : '24px 20px', transition: 'padding 0.3s ease' }}
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000, padding: isScrolled ? '16px 20px' : '24px 20px', transition: 'padding 0.3s ease' }}
     >
       <motion.nav 
         initial={{ y: -20, opacity: 0 }}
@@ -181,12 +198,13 @@ const Navbar = () => {
           </motion.a>
           
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <button className="btn-solid-cyber" style={{ 
+            <Link to="/contact" className="btn-solid-cyber" style={{ 
               display: 'flex', alignItems: 'center', gap: '8px',
-              padding: '10px 24px', fontSize: '0.95rem', fontWeight: 700, borderRadius: '12px'
+              padding: '10px 24px', fontSize: '0.95rem', fontWeight: 700, borderRadius: '12px',
+              textDecoration: 'none'
             }}>
               <Download size={16} /> {t('Resume')}
-            </button>
+            </Link>
           </motion.div>
 
           <motion.button

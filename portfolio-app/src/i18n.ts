@@ -171,7 +171,14 @@ const resources = {
       "Scope_Text": "The prices listed cover exactly the deliverables mentioned. Any additional features, extra pages, or custom requirements outside the original agreement will require a separate custom quote and timeline adjustment.",
       "Payment_Text": "For custom projects, a 50% non-refundable upfront deposit is required before any development begins. The remaining 50% is due upon final delivery and project approval. Fixed-price services (e.g., Landing Pages) require full payment upfront.",
       "Revisions_Text": "Each service includes up to 2 rounds of major revisions during the design/development phase. Additional major revisions or changing the core requirements mid-project will be billed at an hourly rate.",
-      "Communication_Text": "All official project communication will be handled via Email or a dedicated Slack/Telegram channel. I provide regular progress updates. Source code and deployment assets are handed over only after full payment is received."
+      "Communication_Text": "All official project communication will be handled via Email or a dedicated Slack/Telegram channel. I provide regular progress updates. Source code and deployment assets are handed over only after full payment is received.",
+      "Footer_Bio": "Crafting high-performance websites with modern tech stacks. Focused on speed, accessibility, and exceptional user experiences.",
+      "NAVIGATION": "NAVIGATION",
+      "GET IN TOUCH": "GET IN TOUCH",
+      "EMAIL ME": "EMAIL ME",
+      "CALL ME": "CALL ME",
+      "Footer_Rights": "Designed & Built by",
+      "All rights reserved": "All rights reserved."
     }
   },
   ar: {
@@ -343,7 +350,14 @@ const resources = {
       "Scope_Text": "الأسعار المذكورة تغطي بالضبط المتطلبات المتفق عليها. أي إضافات، صفحات جديدة، أو متطلبات خارج الاتفاق الأصلي تتطلب تسعيراً جديداً وتعديلاً في وقت التسليم.",
       "Payment_Text": "للمشاريع الخاصة، يُشترط دفع 50% مقدم غير مسترد قبل بدء التطوير. الـ 50% المتبقية تُدفع عند التسليم النهائي. الخدمات الثابتة (مثل صفحات الهبوط) تُدفع بالكامل مقدماً.",
       "Revisions_Text": "كل خدمة تتضمن تعديلين جوهريين (2 Rounds) خلال فترة التصميم/التطوير. أي تعديلات إضافية أو تغيير جذري في المتطلبات سيتم حسابه بتكلفة إضافية.",
-      "Communication_Text": "يتم التواصل الرسمي بخصوص المشروع عبر البريد الإلكتروني أو تليجرام. أقدم تحديثات دورية للعمل. يتم تسليم الكود المصدري ورفع المشروع فقط بعد استلام الدفعة كاملة."
+      "Communication_Text": "يتم التواصل الرسمي بخصوص المشروع عبر البريد الإلكتروني أو تليجرام. أقدم تحديثات دورية للعمل. يتم تسليم الكود المصدري ورفع المشروع فقط بعد استلام الدفعة كاملة.",
+      "Footer_Bio": "تطوير حلول برمجية وتطبيقات ويب متكاملة وعالية الأداء. تركيز دائم على السرعة، سهولة الوصول، وتجربة مستخدم استثنائية.",
+      "NAVIGATION": "روابط الموقع",
+      "GET IN TOUCH": "تواصل معي",
+      "EMAIL ME": "البريد الإلكتروني",
+      "CALL ME": "اتصال هاتفي",
+      "Footer_Rights": "تصميم وتطوير بواسطة",
+      "All rights reserved": "جميع الحقوق محفوظة."
     }
   }
 };
