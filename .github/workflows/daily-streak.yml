@@ -1,0 +1,45 @@
+name: Daily Repository Activity
+
+on:
+  schedule:
+    # Runs everyday at 10:00 UTC (13:00 Egypt Time)
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  maintain-streak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Update daily activity log
+        run: |
+          mkdir -p .github/data
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          cat <<EOF > .github/data/activity.json
+          {
+            "last_sync": "$TIMESTAMP",
+            "status": "active",
+            "maintainer": "mohamedcody",
+            "description": "Daily repository activity tracking"
+          }
+          EOF
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "mohamedcody"
+          git config --global user.email "mohamedcody18@gmail.com"
+          git add .github/data/activity.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore(activity): record daily maintenance pulse [skip ci]"
+            git push origin main
+          fi

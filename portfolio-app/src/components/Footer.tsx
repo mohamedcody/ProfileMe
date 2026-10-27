@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, ArrowUp } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -24,7 +27,7 @@ const Footer = () => {
               Mohamed<span style={{ color: 'var(--accent-primary)' }}>.</span>
             </h3>
             <p className="text-body-lg" style={{ marginBottom: 'var(--space-32)', maxWidth: '350px', lineHeight: '1.7', color: 'var(--text-medium)' }}>
-              Crafting high-performance websites with modern tech stacks. Focused on speed, accessibility, and exceptional user experiences.
+              {t('Footer_Bio')}
             </p>
             
             {/* Social Icons with Increased Spacing (gap-24) and Spring Animations */}
@@ -60,16 +63,19 @@ const Footer = () => {
 
           {/* Middle Column - Navigation */}
           <div style={{ flex: '1 1 200px' }}>
-            <h4 className="label-spaced" style={{ marginBottom: 'var(--space-24)', color: 'var(--text-muted)' }}>NAVIGATION</h4>
+            <h4 className="label-spaced" style={{ marginBottom: 'var(--space-24)', color: 'var(--text-muted)' }}>{t('NAVIGATION')}</h4>
             <div className="flex flex-col gap-16 text-body">
-              <Link to="/projects" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>Projects</Link>
-              <Link to="/contact" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>Contact Me</Link>
+              <Link to="/" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>{t('Home')}</Link>
+              <Link to="/projects" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>{t('Projects')}</Link>
+              <Link to="/services" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>{t('Services')}</Link>
+              <Link to="/team" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>{t('Team')}</Link>
+              <Link to="/contact" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>{t('Contact Me')}</Link>
             </div>
           </div>
 
           {/* Right Column - Contact Cards */}
           <div style={{ flex: '1 1 350px' }}>
-            <h4 className="label-spaced" style={{ marginBottom: 'var(--space-24)', color: 'var(--text-muted)' }}>GET IN TOUCH</h4>
+            <h4 className="label-spaced" style={{ marginBottom: 'var(--space-24)', color: 'var(--text-muted)' }}>{t('GET IN TOUCH')}</h4>
             <div className="flex flex-col gap-16">
               
               <a href="mailto:mohamedcody18@gmail.com" style={{ display: 'block' }}>
@@ -80,7 +86,7 @@ const Footer = () => {
                   onMouseOut={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'}
                 >
                   <div className="flex items-center gap-8" style={{ color: 'var(--accent-primary)', marginBottom: 'var(--space-8)', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.05em' }}>
-                     <Mail size={16} /> EMAIL ME
+                     <Mail size={16} /> {t('EMAIL ME')}
                   </div>
                   <p className="text-body" style={{ color: 'var(--text-high)', fontWeight: 500 }}>mohamedcody18@gmail.com</p>
                 </motion.div>
@@ -94,7 +100,7 @@ const Footer = () => {
                   onMouseOut={(e) => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'}
                 >
                   <div className="flex items-center gap-8" style={{ color: 'var(--accent-primary)', marginBottom: 'var(--space-8)', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.05em' }}>
-                     <Phone size={16} /> CALL ME
+                     <Phone size={16} /> {t('CALL ME')}
                   </div>
                   <p className="text-body" style={{ color: 'var(--text-high)', fontWeight: 500 }}>+20 1148415128</p>
                 </motion.div>
@@ -107,7 +113,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="flex justify-between items-center md-flex-col gap-24" style={{ paddingTop: 'var(--space-32)', borderTop: '1px solid var(--border-subtle)' }}>
           <div className="text-sm" style={{ color: 'var(--text-muted)' }}>
-            Designed & Built by <strong style={{ color: 'var(--text-high)' }}>Mohamed Saad</strong> &bull; &copy; {CURRENT_YEAR} All rights reserved.
+            {t('Footer_Rights')} <strong style={{ color: 'var(--text-high)' }}>Mohamed Saad</strong> &bull; &copy; {CURRENT_YEAR} {t('All rights reserved')}
           </div>
           <button 
             onClick={scrollToTop} 
