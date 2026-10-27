@@ -181,6 +181,71 @@ const Home = () => {
           </motion.div>
         </section>
 
+        {/* Interactive Stats Highlights Banner */}
+        <section aria-label="Key Highlights" className="container" style={{ marginTop: 'var(--space-32)' }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: '24px',
+              padding: 'var(--space-32) var(--space-24)',
+              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(0, 180, 216, 0.25)',
+              borderRadius: 'var(--radius-lg)',
+              backdropFilter: 'blur(16px)',
+              boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 180, 216, 0.08)'
+            }}
+          >
+            {[
+              { value: '3+', labelKey: 'stats_projects', sub: 'Java, Spring & React' },
+              { value: '100%', labelKey: 'stats_satisfaction', sub: 'High Standards' },
+              { value: '99.9%', labelKey: 'stats_uptime', sub: 'Clean Architecture' },
+              { value: '98+', labelKey: 'stats_performance', sub: 'Speed & SEO' }
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                whileHover={{ y: -5, scale: 1.02 }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  padding: 'var(--space-12)'
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 'clamp(2.4rem, 4vw, 3.2rem)',
+                    fontWeight: 900,
+                    lineHeight: 1,
+                    marginBottom: '8px',
+                    background: 'linear-gradient(135deg, #ffffff 30%, var(--accent-primary) 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    textShadow: '0 0 25px rgba(0, 180, 216, 0.3)'
+                  }}
+                >
+                  {stat.value}
+                </div>
+                <div style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--text-high)', marginBottom: '4px' }}>
+                  {t(stat.labelKey)}
+                </div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                  {stat.sub}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </section>
+
         <GlowingDivider />
 
         {/* About Section */}

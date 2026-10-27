@@ -17,17 +17,19 @@ export const TeamMemberCard = ({ member, index }: TeamMemberCardProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -6, borderColor: 'rgba(0, 180, 216, 0.4)', boxShadow: '0 20px 45px rgba(0, 180, 216, 0.16)' }}
       style={{ 
         backgroundColor: 'rgba(255, 255, 255, 0.02)', 
-        border: '1px solid rgba(255,255,255,0.05)',
+        border: '1px solid rgba(255, 255, 255, 0.08)',
         borderRadius: '24px',
-        padding: '40px',
+        padding: 'clamp(24px, 5vw, 40px)',
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
         boxShadow: '0 20px 40px rgba(0,0,0,0.2)',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        transition: 'border-color 0.3s ease, box-shadow 0.3s ease'
       }}
       className="team-card group"
     >
