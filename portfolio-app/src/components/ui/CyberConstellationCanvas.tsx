@@ -6,8 +6,6 @@ interface Particle {
   vx: number;
   vy: number;
   radius: number;
-  alpha: number;
-  baseAlpha: number;
 }
 
 export const CyberConstellationCanvas = () => {
@@ -17,7 +15,7 @@ export const CyberConstellationCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
     let animationFrameId: number;
@@ -25,9 +23,9 @@ export const CyberConstellationCanvas = () => {
     let height = (canvas.height = window.innerHeight);
 
     const isMobile = window.innerWidth < 768;
-    const particleCount = isMobile ? 24 : 55;
+    const particleCount = isMobile ? 12 : 28;
     const connectionDistance = isMobile ? 80 : 120;
-    const mouseRadius = isMobile ? 0 : 140;
+    const mouseRadius = isMobile ? 0 : 130;
 
     const mouse = {
       x: -9999,
@@ -37,15 +35,12 @@ export const CyberConstellationCanvas = () => {
 
     const particles: Particle[] = [];
     for (let i = 0; i < particleCount; i++) {
-      const baseAlpha = Math.random() * 0.45 + 0.25;
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * (isMobile ? 0.35 : 0.6),
-        vy: (Math.random() - 0.5) * (isMobile ? 0.35 : 0.6),
-        radius: Math.random() * 1.5 + 1.2,
-        alpha: baseAlpha,
-        baseAlpha
+        vx: (Math.random() - 0.5) * (isMobile ? 0.3 : 0.45),
+        vy: (Math.random() - 0.5) * (isMobile ? 0.3 : 0.45),
+        radius: Math.random() * 0.8 + 1.2
       });
     }
 
@@ -67,71 +62,75 @@ export const CyberConstellationCanvas = () => {
       mouse.y = -9999;
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
     if (!isMobile) {
-      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
       document.addEventListener('mouseleave', handleMouseLeave);
     }
 
+    let isVisible = true;
+    const handleVisibilityChange = () => {
+      isVisible = !document.hidden;
+      if (isVisible) {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     const render = () => {
+      if (!isVisible) return;
       ctx.clearRect(0, 0, width, height);
 
-      // Update and draw particles
+      // 1. Update positions & Draw particle dots in ONE batch
+      ctx.beginPath();
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
 
-        // Wrap around screen edges
         if (p.x < 0) p.x = width;
         else if (p.x > width) p.x = 0;
         if (p.y < 0) p.y = height;
         else if (p.y > height) p.y = 0;
 
-        // Draw particle dot
-        ctx.beginPath();
+        ctx.moveTo(p.x + p.radius, p.y);
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0, 180, 216, ${p.alpha})`;
-        ctx.shadowColor = 'rgba(0, 180, 216, 0.6)';
-        ctx.shadowBlur = 6;
-        ctx.fill();
+      }
+      ctx.fillStyle = 'rgba(0, 180, 216, 0.45)';
+      ctx.fill();
 
-        // Connect to mouse if within reach
+      // 2. Draw connecting lines in ONE batch
+      ctx.beginPath();
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        // Connect to mouse
         if (mouse.isActive) {
           const dxMouse = p.x - mouse.x;
           const dyMouse = p.y - mouse.y;
           const distMouse = Math.hypot(dxMouse, dyMouse);
-
           if (distMouse < mouseRadius) {
-            const mouseProximity = 1 - distMouse / mouseRadius;
-            ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(mouse.x, mouse.y);
-            ctx.strokeStyle = `rgba(0, 180, 216, ${mouseProximity * 0.45})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
           }
         }
 
-        // Connect particles to each other
+        // Connect to neighbors
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const dx = p.x - p2.x;
           const dy = p.y - p2.y;
-          const dist = Math.hypot(dx, dy);
-
-          if (dist < connectionDistance) {
-            const lineAlpha = (1 - dist / connectionDistance) * 0.22;
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0, 180, 216, ${lineAlpha})`;
-            ctx.lineWidth = 0.85;
-            ctx.shadowBlur = 0;
-            ctx.stroke();
+          if (Math.abs(dx) < connectionDistance && Math.abs(dy) < connectionDistance) {
+            if (Math.hypot(dx, dy) < connectionDistance) {
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+            }
           }
         }
       }
+      ctx.strokeStyle = 'rgba(0, 180, 216, 0.12)';
+      ctx.lineWidth = 0.75;
+      ctx.stroke();
 
       animationFrameId = requestAnimationFrame(render);
     };
@@ -141,6 +140,7 @@ export const CyberConstellationCanvas = () => {
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (!isMobile) {
         window.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseleave', handleMouseLeave);
@@ -159,7 +159,8 @@ export const CyberConstellationCanvas = () => {
         height: '100vh',
         pointerEvents: 'none',
         zIndex: 0,
-        opacity: 0.85
+        opacity: 0.75,
+        transform: 'translateZ(0)'
       }}
       aria-hidden="true"
     />

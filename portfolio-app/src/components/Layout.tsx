@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { CustomCursor } from './ui/CustomCursor';
 import { CyberConstellationCanvas } from './ui/CyberConstellationCanvas';
 import { ScrollProgressBar } from './ui/ScrollProgressBar';
 import { MobileFloatingAction } from './ui/MobileFloatingAction';
@@ -15,9 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative' }}>
       <ScrollProgressBar />
       <div className="mesh-gradient-bg"></div>
-      <div className="noise-overlay"></div>
       <CyberConstellationCanvas />
-      <CustomCursor />
       <Navbar />
       <main style={{ flex: 1, position: 'relative', zIndex: 1 }}>
         {children}
