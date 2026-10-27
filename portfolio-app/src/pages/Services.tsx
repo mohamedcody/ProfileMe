@@ -128,13 +128,22 @@ const ServiceRow = ({ service, index, currency }: { service: ServiceOffering; in
       {/* Image Side */}
       <div style={{ flex: '1 1 50%', width: '100%', position: 'relative' }}>
         <motion.div 
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.4 }}
+          whileHover={{ scale: 1.025, y: -4 }}
+          transition={{ duration: 0.35, ease: 'easeOut' }}
           style={{ 
             position: 'relative', width: '100%', aspectRatio: '4/3',
             borderRadius: '24px', overflow: 'hidden',
-            border: '1px solid var(--border-subtle)',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
+            border: '1px solid rgba(0, 180, 216, 0.2)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+            transition: 'border-color 0.3s ease, box-shadow 0.3s ease'
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.borderColor = 'var(--accent-primary)';
+            e.currentTarget.style.boxShadow = '0 20px 45px rgba(0, 180, 216, 0.25)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(0, 180, 216, 0.2)';
+            e.currentTarget.style.boxShadow = '0 20px 40px rgba(0,0,0,0.4)';
           }}
         >
           <img 
@@ -249,7 +258,7 @@ const Services = () => {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
             className="label-spaced text-caption" style={{ color: 'var(--text-muted)', marginBottom: '32px' }}
           >
-            <Link to="/" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--text-high)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>HOME</Link> &rsaquo; <span style={{ color: 'var(--accent-primary)' }}>SERVICES</span>
+            <Link to="/" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--text-high)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}>{t('Home')}</Link> &rsaquo; <span style={{ color: 'var(--accent-primary)' }}>{t('Services')}</span>
           </motion.p>
         </div>
 
