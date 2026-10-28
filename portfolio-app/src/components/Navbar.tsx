@@ -210,13 +210,18 @@ const Navbar = () => {
           </motion.a>
           
           <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-            <Link to="/contact" className="btn-solid-cyber" style={{ 
-              display: 'flex', alignItems: 'center', gap: '8px',
-              padding: '10px 24px', fontSize: '0.95rem', fontWeight: 700, borderRadius: '12px',
-              textDecoration: 'none'
-            }}>
+            <a 
+              href="/Mohamed_Saad_Resume.pdf" 
+              download="Mohamed_Saad_Resume.pdf"
+              className="btn-solid-cyber" 
+              style={{ 
+                display: 'flex', alignItems: 'center', gap: '8px',
+                padding: '10px 24px', fontSize: '0.95rem', fontWeight: 700, borderRadius: '12px',
+                textDecoration: 'none'
+              }}
+            >
               <Download size={16} /> {t('Resume')}
-            </Link>
+            </a>
           </motion.div>
 
           <motion.button
@@ -250,6 +255,21 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
+          <Link
+            to="/resume"
+            onClick={() => setIsMenuOpen(false)}
+            className={location.pathname === '/resume' ? 'mobile-menu-link active' : 'mobile-menu-link'}
+          >
+            {t('Resume / CV')}
+          </Link>
+          <a
+            href="/Mohamed_Saad_Resume.pdf"
+            download="Mohamed_Saad_Resume.pdf"
+            className="mobile-menu-link"
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--accent-primary)', fontWeight: 600 }}
+          >
+            <Download size={16} /> {t('Resume')} (PDF)
+          </a>
         </motion.nav>
       )}
       

@@ -16,6 +16,7 @@ const resources = {
       "Founder_Bio": "Digital Solutions Developer with a deep focus on backend development, scalable architecture, and robust REST APIs. Experienced in Java, Spring Boot, PostgreSQL, and integrating modern AI services to build secure, high-performance web applications.",
       "Available": "Available",
       "Resume": "Resume",
+      "Resume / CV": "Resume / CV",
       
       "Software_Engineer_Role": "Digital Solutions Developer",
       "Software_Engineer_Desc": "Building secure, scalable, and modern digital solutions focused on speed, clean architecture, and exceptional user experiences.",
@@ -203,6 +204,7 @@ const resources = {
       "Founder_Bio": "مطور حلول رقمية متخصص في تطوير الـ Backend وتصميم المعماريات البرمجية القابلة للتوسع وبناء الـ APIs القوية. أمتلك خبرة عميقة في Java و Spring Boot و PostgreSQL ودمج حلول الذكاء الاصطناعي لبناء تطبيقات آمنة وعالية الأداء.",
       "Available": "متاح للعمل",
       "Resume": "السيرة الذاتية",
+      "Resume / CV": "السيرة الذاتية (CV)",
       
       "Software_Engineer_Role": "مطور حلول رقمية",
       "Software_Engineer_Desc": "أبني حلولاً رقمية وتطبيقات ويب متكاملة، آمنة، وقابلة للتوسع مع التركيز على السرعة، المعمارية النظيفة، وتجربة المستخدم الاستثنائية.",

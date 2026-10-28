@@ -69,6 +69,7 @@ const Footer = () => {
               <Link to="/projects" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>{t('Projects')}</Link>
               <Link to="/services" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>{t('Services')}</Link>
               <Link to="/team" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>{t('Team')}</Link>
+              <Link to="/resume" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>{t('Resume / CV')}</Link>
               <Link to="/contact" style={{ fontWeight: 500, color: 'var(--text-high)', transition: 'color var(--transition-fast)' }} onMouseOver={(e) => e.currentTarget.style.color = 'var(--accent-primary)'} onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-high)'}>{t('Contact Me')}</Link>
             </div>
           </div>
